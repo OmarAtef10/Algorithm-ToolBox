@@ -1,0 +1,129 @@
+-->MaxPairWise
+#include <cstdlib>
+#include <iostream>
+#include <vector>
+
+using std::vector;
+using std::cin;
+using std::cout;
+
+long long MaxPairwiseProduct(const vector<int> &numbers) {
+    long long result = 0;
+    int n = numbers.size();
+    for (int i = 0; i < n; ++i) {
+        for (int j = i + 1; j < n; ++j) {
+            if (((long long) (numbers[i])) * numbers[j] > result) {
+                result = ((long long) (numbers[i])) * numbers[j];
+            }
+        }
+    }
+    return result;
+}
+
+long long MaxPairwiseProductFast(const vector<int> &numbers) {
+    int n = numbers.size();
+
+    int max_index1 = -1;
+    for (int i = 0; i < n; ++i)
+        if ((max_index1 == -1) || (numbers[i] > numbers[max_index1]))
+            max_index1 = i;
+
+    int max_index2 = -1;
+    for (int j = 0; j < n; ++j)
+        if ((j != max_index1) && ((max_index2 == -1) || (numbers[j] > numbers[max_index2])))
+            max_index2 = j;
+
+    //cout << max_index1 << ' ' << max_index2 << "\n";
+
+    return ((long long) (numbers[max_index1])) * numbers[max_index2];
+}
+
+int main() {
+    // while (true) {
+    //   int n = rand() % 1000 + 2;
+    //   cout << n << "\n";
+    //   vector<int> a;
+    //   for (int i = 0; i < n; ++i) {
+    //     a.push_back(rand() % 100000);
+    //   }
+    //   for (int i = 0; i < n; ++i) {
+    //     cout << a[i] << ' ';
+    //   }
+    //   cout << "\n";
+    //   long long res1 = MaxPairwiseProduct(a);
+    //   long long res2 = MaxPairwiseProductFast(a);
+    //   if (res1 != res2) {
+    //     cout << "Wrong answer: " << res1 << ' ' << res2 << "\n";
+    //     break;
+    //   }
+    //   else {
+    //     cout << "OK\n";
+    //   }
+    // }
+    int n;
+    cin >> n;
+    vector<int> numbers(n);
+    for (int i = 0; i < n; ++i) {
+        cin >> numbers[i];
+    }
+
+    long long result = MaxPairwiseProductFast(numbers);
+    cout << result << "\n";
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+-->Fibonaci
+#include <iostream>
+#include <cassert>
+
+// The following code calls a naive algorithm for computing a Fibonacci number.
+//
+// What to do:
+// 1. Compile the following code and run it on an input "40" to check that it is slow.
+//    You may also want to submit it to the grader to ensure that it gets the "time limit exceeded" message.
+// 2. Implement the fibonacci_fast procedure.
+// 3. Remove the line that prints the result of the naive algorithm, comment the lines reading the input,
+//    uncomment the line with a call to test_solution, compile the program, and run it.
+//    This will ensure that your efficient algorithm returns the same as the naive one for small values of n.
+// 4. If test_solution() reveals a bug in your implementation, debug it, fix it, and repeat step 3.
+// 5. Remove the call to test_solution, uncomment the line with a call to fibonacci_fast (and the lines reading the input),
+//    and submit it to the grader.
+
+int fibonacci_naive(int n) {
+    if (n <= 1)
+        return n;
+
+    return fibonacci_naive(n - 1) + fibonacci_naive(n - 2);
+}
+
+int fibonacci_fast(int n) {
+    // write your code here
+
+    return 0;
+}
+
+void test_solution() {
+    assert(fibonacci_fast(3) == 2);
+    assert(fibonacci_fast(10) == 55);
+    for (int n = 0; n < 20; ++n)
+        assert(fibonacci_fast(n) == fibonacci_naive(n));
+}
+
+int main() {
+    int n = 0;
+    std::cin >> n;
+
+    std::cout << fibonacci_naive(n) << '\n';
+    //test_solution();
+    //std::cout << fibonacci_fast(n) << '\n';
+    return 0;
+}
+
